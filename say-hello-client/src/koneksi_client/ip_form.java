@@ -91,8 +91,8 @@ public class ip_form extends javax.swing.JFrame {
         try {
             String a = et_ip.getText();
             String url="jdbc:mysql://"+et_ip.getText()+"/proyek-fix"; //url database
-            String user="rum"; //user database
-            String pass="admin"; //password database
+            String user="root"; //user database
+            String pass=""; //password database
             DriverManager.registerDriver(new com.mysql.jdbc.Driver());
             mysqlconfig=DriverManager.getConnection(url, user, pass);
         } catch (Exception e) {

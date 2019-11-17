@@ -3,6 +3,9 @@ package login_form;
 import com.echo.clientserver.sayhello.SayHello;
 import com.echo.clientserver.sayhello.client_asdos.dash_asdos;
 import com.echo.clientserver.sayhello.client_mahasiswa.dash_mahasiswa;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 //import koneksi_client.koneksi;
 import koneksi_client.ip_form;
 import java.sql.Connection;
@@ -21,9 +24,23 @@ public class login_all extends javax.swing.JFrame {
     ResultSet rs_client, rs_mahasiswa, rs_akses;
     String sql_client, sql_mahasiswa, sql_akses;
     String status,a,m,formattedtanggal,formattedjam;
+    public String id_kelas_sekarang,nim,id_komputer;
     
     public login_all() {
         status = "online";
+        try {
+            FileReader reader = new FileReader("id.txt");
+            BufferedReader bufferedReader = new BufferedReader(reader);
+            int character;
+ 
+            while ((id_komputer = bufferedReader.readLine()) != null) {
+                System.out.println(id_komputer);
+            }
+            reader.close();
+ 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         initComponents();
     }
     
@@ -228,7 +245,7 @@ public class login_all extends javax.swing.JFrame {
                 Statement s = c.createStatement();
                 String sql = "SELECT * FROM profil_mahasiswa where username_mhs='"+et_user.getText() + "' and password_mhs='"+ et_pass.getText() +"'";
                 ResultSet r = s.executeQuery(sql);
-                
+                nim=et_user.getText();
                 int baris = 0;
                 while (r.next()) {
                     baris = r.getRow();
@@ -251,6 +268,7 @@ public class login_all extends javax.swing.JFrame {
                     while (rs1.next()){
                         m=rs1.getString("id_absen");
                     }
+                    id_kelas_sekarang=m;
                     
                     
                     
@@ -276,6 +294,9 @@ public class login_all extends javax.swing.JFrame {
             } catch (SQLException e) {
             }
         }
+    }
+    public String getIdKelas(){
+        return id_kelas_sekarang;
     }
     
     private void btn_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_loginMouseClicked
