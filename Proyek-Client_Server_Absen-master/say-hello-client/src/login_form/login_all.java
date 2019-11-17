@@ -20,6 +20,7 @@ public class login_all extends javax.swing.JFrame {
     ResultSet rs_client, rs_mahasiswa, rs_akses;
     String sql_client, sql_mahasiswa, sql_akses;
     String status,a,m,v,formattedtanggal,formattedjam;
+    Integer gg,hasil_mnt,hasil_jm;
     
     public login_all() {
         status = "online";
@@ -191,6 +192,7 @@ public class login_all extends javax.swing.JFrame {
         final LocalTime jam = LocalTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         formattedjam = jam.format(formatter);
+        
         return (formattedjam);
     }
     
@@ -248,7 +250,9 @@ public class login_all extends javax.swing.JFrame {
                         m=rs1.getString("id_absen");
                     }
                     
-                    String sql4 = "UPDATE `absen_detail` SET `tanggal_absen`='"+getTanggal()+"',`jam_absen`='"+getWaktu()+"',`ket`='hadir' WHERE id_absen='"+m+"' and nim_mhs='"+et_user.getText()+"'";
+                    String ff = muncul_waktu(m);
+                    
+                    String sql4 = "UPDATE `absen_detail` SET `tanggal_absen`='"+getTanggal()+"',`jam_absen`='"+getWaktu()+"',`ket`='"+ff+"' WHERE id_absen='"+m+"' and nim_mhs='"+et_user.getText()+"'";
                     java.sql.Connection connn=(Connection)ip_form.configDB();
                     java.sql.PreparedStatement pstt=connn.prepareStatement(sql4);
                     pstt.execute();
@@ -271,6 +275,54 @@ public class login_all extends javax.swing.JFrame {
             } catch (SQLException e) {
             }
         }
+    }
+    
+    private String muncul_waktu(String p){
+        String kett = null;
+        try
+            {
+            Connection c = ip_form.configDB();
+            Statement s = c.createStatement();
+            String sql = "SELECT * FROM absen WHERE id_absen='"+p+"'";
+            ResultSet r = s.executeQuery(sql);
+                getWaktu();
+                while(r.next())
+                {
+                    String waktu = r.getString("jam_absen");
+                    String sub_jamDB = waktu.substring(0, 2);
+                    String sub_menitDB = waktu.substring(3, 5);
+                    
+                    String sub_jamlp = formattedjam.substring(0, 2);
+                    String sub_menitlp = formattedjam.substring(3, 5);
+                    
+                    Integer jmDB,mntDB,jm,mnt;
+                    
+                    jmDB = Integer.parseInt(sub_jamDB);
+                    mntDB = Integer.parseInt(sub_menitDB);
+                    
+                    jm = Integer.parseInt(sub_jamlp);
+                    mnt = Integer.parseInt(sub_menitlp);
+                    
+                    if (mntDB>mnt){
+                        mnt+=60;
+                        jm-=1;
+                    }
+                    
+                    hasil_mnt = mnt-mntDB;
+                    hasil_jm = jm-jmDB;
+                    
+                    if (hasil_mnt>5 && hasil_jm>0){
+                        kett = "Alfa";
+                    }else{
+                        kett = "Hadir";
+                    }
+                    
+                }
+            }catch(Exception e)
+                {
+                    JOptionPane.showMessageDialog(null,"GAGAL Ambil Waktu ");
+                }
+        return kett;
     }
     
     private void btn_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_loginMouseClicked

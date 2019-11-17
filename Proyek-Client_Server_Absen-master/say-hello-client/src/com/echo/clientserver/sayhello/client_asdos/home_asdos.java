@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -27,7 +28,7 @@ import koneksi_client.ip_form;
 //import sun.util.resources.LocaleData;
 
 public class home_asdos extends javax.swing.JPanel {
-    String m,formattedtanggal,formattedjam;    
+    String m,formattedtanggal,formattedjam,waktu;    
 //    Date tgl,jam;
     
     public home_asdos() {
@@ -55,6 +56,7 @@ public class home_asdos extends javax.swing.JPanel {
         cb_akses = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(1270, 800));
 
@@ -157,6 +159,10 @@ public class home_asdos extends javax.swing.JPanel {
         panel_alas.add(jButton1);
         jButton1.setBounds(620, 110, 72, 29);
 
+        jLabel1.setText("jLabel1");
+        panel_alas.add(jLabel1);
+        jLabel1.setBounds(710, 110, 190, 60);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -205,14 +211,39 @@ public class home_asdos extends javax.swing.JPanel {
         return (formattedjam);
     }
     
-    private String getWaktu_coba() {  
-        return null;
-//        final LocalTime jam = LocalTime.now();
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm,15:ss");
-//        
-//        formattedjam = jam.format(formatter);
-//        jTextField1.setText(formattedjam);
-//        return (formattedjam);
+    private String getWaktu_coba() {
+        final LocalTime jam = LocalTime.now();
+        LocalTime a =jam.plusMinutes(15);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        formattedjam = a.format(formatter);
+        jTextField1.setText(formattedjam);
+        return (formattedjam);
+    }
+    
+    private void ambilwaktu(){
+        try
+            {
+            Connection c = ip_form.configDB();
+            Statement s = c.createStatement();
+            String sql = "SELECT * FROM absen WHERE id_absen='2019APBO01L40303'";
+            ResultSet r = s.executeQuery(sql);
+
+                while(r.next())
+                {
+                    jTextField1.setText(r.getString("jam_absen"));
+                    waktu = jTextField1.getText();
+                    String sub_jam = waktu.substring(0, 2);
+                    String sub_menit = waktu.substring(3, 5);
+                    Integer jm,mnt;
+                    jm = Integer.parseInt(sub_jam);
+                    mnt = Integer.parseInt(sub_menit);
+                    System.out.println(jm);
+                    System.out.println(mnt);
+                }
+            }catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null,"GAGAL Ambil Waktu ");
+            }
     }
     
     
@@ -267,7 +298,7 @@ public class home_asdos extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        getWaktu_coba();
+        ambilwaktu();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void muncul_absen(){
@@ -282,6 +313,7 @@ public class home_asdos extends javax.swing.JPanel {
     private javax.swing.JLabel btn_konek;
     private javax.swing.JComboBox<String> cb_akses;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
