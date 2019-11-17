@@ -6,13 +6,18 @@
 package com.echo.clientserver.sayhello.client_mahasiswa;
 
 import com.echo.clientserver.sayhello.client_asdos.asdos_absen;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import koneksi_client.ip_form;
 
 /**
  *
  * @author R
  */
 public class home_mahasiswa extends javax.swing.JPanel {
-
+    String waktu;
     /**
      * Creates new form home_mahasiswa
      */
@@ -40,6 +45,8 @@ public class home_mahasiswa extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(1090, 650));
 
@@ -107,6 +114,19 @@ public class home_mahasiswa extends javax.swing.JPanel {
         panel_alas.add(jLabel7);
         jLabel7.setBounds(530, 170, 280, 280);
 
+        jTextField1.setText("jTextField1");
+        panel_alas.add(jTextField1);
+        jTextField1.setBounds(170, 60, 180, 40);
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        panel_alas.add(jButton1);
+        jButton1.setBounds(380, 60, 72, 29);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -145,6 +165,13 @@ public class home_mahasiswa extends javax.swing.JPanel {
             //        }
     }//GEN-LAST:event_btn_konekMouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    
+    
     private void muncul_history(){
         history_mahasiswa mahasiswa_history  = new history_mahasiswa();
         mahasiswa_history.setVisible(true);
@@ -154,6 +181,7 @@ public class home_mahasiswa extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btn_View;
     private javax.swing.JLabel btn_konek;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -162,6 +190,7 @@ public class home_mahasiswa extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel panel_alas;
     // End of variables declaration//GEN-END:variables
 }
