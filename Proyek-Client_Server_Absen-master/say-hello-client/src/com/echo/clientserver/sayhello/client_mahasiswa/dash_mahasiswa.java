@@ -8,16 +8,21 @@ import java.sql.Statement;
 import login_form.login_all;
 
 public class dash_mahasiswa extends javax.swing.JFrame {
+    data_mahasiswa data=new data_mahasiswa();
     profil_mahasiswa frm_prof;
     login_all ke_login = new login_all();
     Connection c_mhs;
     Statement s_mhs;
     ResultSet r_mhs;
-    String sql_mhs, b, d;
+    String sql_mhs, b, d,id_absen,nim,id_komputer;
     
     
-    public dash_mahasiswa(String c) {
+    public dash_mahasiswa(String c,String id_absen, String nim,String id_komputer) {
         initComponents();
+        this.data=data;
+        this.id_absen=id_absen;
+        this.id_komputer=id_komputer;
+        this.nim=nim;
         d = c;
         frm_prof = new profil_mahasiswa(d);
     }
@@ -241,7 +246,10 @@ public class dash_mahasiswa extends javax.swing.JFrame {
     }
     
     private void muncul_home_mahasiswa(){
-        home_mahasiswa frm_home  = new home_mahasiswa();
+        System.out.println(id_absen);
+        System.out.println(nim);
+        System.out.println(id_komputer);
+        home_mahasiswa frm_home  = new home_mahasiswa(id_absen,nim,id_komputer);
         //remove panel
         hapus_panel();
         
@@ -294,7 +302,7 @@ public class dash_mahasiswa extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new dash_mahasiswa(null).setVisible(true);
+                new dash_mahasiswa(null,null,null,null).setVisible(true);
             }
         });
     }

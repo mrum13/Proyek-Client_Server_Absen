@@ -24,11 +24,13 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import koneksi_client.ip_form;
+import login_form.login_all;
 //import sun.util.calendar.LocalGregorianCalendar;
 //import sun.util.resources.LocaleData;
 
 public class home_asdos extends javax.swing.JPanel {
-    String m,formattedtanggal,formattedjam,waktu;    
+    String m,formattedtanggal,formattedjam,waktu,id_absen;    
+    
 //    Date tgl,jam;
     
     public home_asdos() {
@@ -112,6 +114,7 @@ public class home_asdos extends javax.swing.JPanel {
         btn_konek.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btn_konek.setText("Upload");
         btn_konek.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_konek.setEnabled(false);
         btn_konek.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_konekMouseClicked(evt);
@@ -157,7 +160,7 @@ public class home_asdos extends javax.swing.JPanel {
             }
         });
         panel_alas.add(jButton1);
-        jButton1.setBounds(620, 110, 72, 29);
+        jButton1.setBounds(620, 110, 73, 23);
 
         jLabel1.setText("jLabel1");
         panel_alas.add(jLabel1);
@@ -190,11 +193,12 @@ public class home_asdos extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_ViewMouseClicked
 
     private void btn_konekMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_konekMouseClicked
-        JFileChooser jfc = new JFileChooser();
-        jfc.showOpenDialog(null);
-
-        File file = jfc.getSelectedFile();
-        String dir = file.getAbsolutePath();
+//        JFileChooser jfc = new JFileChooser();
+//        jfc.showOpenDialog(null);
+//
+//        File file = jfc.getSelectedFile();
+//        String dir = file.getAbsolutePath();
+    muncul_upload();
     }//GEN-LAST:event_btn_konekMouseClicked
 
     private String getTanggal() {  
@@ -270,6 +274,8 @@ public class home_asdos extends javax.swing.JPanel {
                 while (r.next()) {
                     m = r.getString("id_absen");
                 }
+                id_absen=m;                      
+                btn_konek.setEnabled(true);
                 String sql2 = "UPDATE `absen` SET `tanggal_absen`='"+getTanggal()+"',`jam_absen`='"+getWaktu()+"' WHERE id_absen='"+m+"'";
                 java.sql.Connection conn=(Connection)ip_form.configDB();
                 java.sql.PreparedStatement pst=conn.prepareStatement(sql2);
@@ -304,6 +310,11 @@ public class home_asdos extends javax.swing.JPanel {
     private void muncul_absen(){
         asdos_absen absen_asdos  = new asdos_absen();
         absen_asdos.setVisible(true);
+        this.setEnabled(false);   
+    }
+    private void muncul_upload(){
+        upload_tugas ut  = new upload_tugas(id_absen);
+        ut.setVisible(true);
         this.setEnabled(false);   
     }
 

@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
  * @author R
  */
 public class history_mahasiswa extends javax.swing.JFrame {
+    data_mahasiswa data= new data_mahasiswa();
     DefaultTableModel model;
     Connection con_absen;
     Statement stat_absen;
@@ -43,7 +44,7 @@ public class history_mahasiswa extends javax.swing.JFrame {
         model.addColumn("Nama");
         model.addColumn("Kelas");
         model.addColumn("Jurusan");
-        frm_dash = new dash_mahasiswa(status);
+
     }
 
     /**

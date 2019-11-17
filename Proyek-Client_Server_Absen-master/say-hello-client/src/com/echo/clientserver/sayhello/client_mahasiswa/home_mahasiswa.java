@@ -17,13 +17,23 @@ import koneksi_client.ip_form;
  * @author R
  */
 public class home_mahasiswa extends javax.swing.JPanel {
+    data_mahasiswa data = new data_mahasiswa();
+    String id_absen,nim,id_komputer;
     String waktu;
     /**
      * Creates new form home_mahasiswa
      */
-    public home_mahasiswa() {
+    public home_mahasiswa(String id_absen,String nim,String id_komputer) {
         initComponents();
+        this.id_absen=id_absen;
+        this.nim=nim;
+        this.id_komputer=id_komputer;
+        System.out.println(id_absen);
+        System.out.println(nim);
+        System.out.println(id_komputer);
     }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -83,7 +93,7 @@ public class home_mahasiswa extends javax.swing.JPanel {
         btn_konek.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         btn_konek.setForeground(new java.awt.Color(255, 255, 255));
         btn_konek.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btn_konek.setText("Upload");
+        btn_konek.setText("Tugas");
         btn_konek.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_konek.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -125,7 +135,7 @@ public class home_mahasiswa extends javax.swing.JPanel {
             }
         });
         panel_alas.add(jButton1);
-        jButton1.setBounds(380, 60, 72, 29);
+        jButton1.setBounds(380, 60, 73, 23);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -163,6 +173,7 @@ public class home_mahasiswa extends javax.swing.JPanel {
             //        } catch (RemoteException ex) {
             //            Logger.getLogger(login_form.class.getName()).log(Level.SEVERE, null, ex);
             //        }
+            muncul_upload();
     }//GEN-LAST:event_btn_konekMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -175,6 +186,11 @@ public class home_mahasiswa extends javax.swing.JPanel {
     private void muncul_history(){
         history_mahasiswa mahasiswa_history  = new history_mahasiswa();
         mahasiswa_history.setVisible(true);
+        this.setEnabled(false);   
+    }
+     private void muncul_upload(){
+        upload_tugas ut  = new upload_tugas(id_absen,nim,id_komputer);
+        ut.setVisible(true);
         this.setEnabled(false);   
     }
 

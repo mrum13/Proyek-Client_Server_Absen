@@ -105,6 +105,7 @@ public class ip_form extends javax.swing.JFrame {
             konek="berhasil";
         } catch (Exception e) {
             konek="gagal";
+            System.err.println(e.toString());
         }
         return mysqlconfig;
     }

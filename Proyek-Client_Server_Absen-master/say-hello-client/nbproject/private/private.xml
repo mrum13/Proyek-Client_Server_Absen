@@ -2,6 +2,16 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/node_develop/Proyek-Client_Server_Absen/Proyek-Client_Server_Absen-master/say-hello-client/src/com/echo/clientserver/sayhello/client_asdos/home_asdos.java</file>
+            <file>file:/D:/node_develop/Proyek-Client_Server_Absen/Proyek-Client_Server_Absen-master/say-hello-client/src/com/echo/clientserver/sayhello/client_mahasiswa/data_mahasiswa.java</file>
+            <file>file:/D:/node_develop/Proyek-Client_Server_Absen/Proyek-Client_Server_Absen-master/say-hello-client/src/koneksi_client/ip_form.java</file>
+            <file>file:/D:/node_develop/Proyek-Client_Server_Absen/Proyek-Client_Server_Absen-master/say-hello-client/src/login_form/login_all.java</file>
+            <file>file:/D:/node_develop/Proyek-Client_Server_Absen/Proyek-Client_Server_Absen-master/say-hello-client/src/com/echo/clientserver/sayhello/client_mahasiswa/upload_tugas.java</file>
+            <file>file:/D:/node_develop/Proyek-Client_Server_Absen/Proyek-Client_Server_Absen-master/say-hello-client/src/com/echo/clientserver/sayhello/client_mahasiswa/home_mahasiswa.java</file>
+            <file>file:/D:/node_develop/Proyek-Client_Server_Absen/Proyek-Client_Server_Absen-master/say-hello-client/src/com/echo/clientserver/sayhello/client_asdos/upload_tugas.java</file>
+            <file>file:/D:/node_develop/Proyek-Client_Server_Absen/Proyek-Client_Server_Absen-master/say-hello-client/src/com/echo/clientserver/sayhello/client_mahasiswa/dash_mahasiswa.java</file>
+            <file>file:/D:/node_develop/Proyek-Client_Server_Absen/Proyek-Client_Server_Absen-master/say-hello-client/src/com/echo/clientserver/sayhello/client_mahasiswa/history_mahasiswa.java</file>
+        </group>
     </open-files>
 </project-private>

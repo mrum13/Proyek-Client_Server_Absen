@@ -3,6 +3,10 @@ package login_form;
 import com.echo.clientserver.sayhello.SayHello;
 import com.echo.clientserver.sayhello.client_asdos.dash_asdos;
 import com.echo.clientserver.sayhello.client_mahasiswa.dash_mahasiswa;
+import com.echo.clientserver.sayhello.client_mahasiswa.data_mahasiswa;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import koneksi_client.ip_form;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -21,9 +25,25 @@ public class login_all extends javax.swing.JFrame {
     String sql_client, sql_mahasiswa, sql_akses;
     String status,a,m,v,formattedtanggal,formattedjam;
     Integer gg,hasil_mnt,hasil_jm;
+    public String id_absen,nim,id_komputer;
+    data_mahasiswa data=new data_mahasiswa();
     
     public login_all() {
         status = "online";
+        try {
+            FileReader reader = new FileReader("id.txt");
+            BufferedReader bufferedReader = new BufferedReader(reader);
+            int character;
+ 
+            while ((id_komputer = bufferedReader.readLine()) != null) {
+                
+                System.out.println(id_komputer);
+            }
+            reader.close();
+ 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         initComponents();
     }
     
@@ -205,6 +225,7 @@ public class login_all extends javax.swing.JFrame {
                 String sql = "SELECT * FROM profil_asdos where username_asdos='"+et_user.getText() + "' and password_asdos='"+ et_pass.getText() +"'";
                 ResultSet r = s.executeQuery(sql);
                 int baris = 0;
+                nim=et_user.getText();
                 while (r.next()) {
                     baris = r.getRow();
                 }
@@ -226,7 +247,7 @@ public class login_all extends javax.swing.JFrame {
                 Statement s = c.createStatement();
                 String sql = "SELECT * FROM profil_mahasiswa where username_mhs='"+et_user.getText() + "' and password_mhs='"+ et_pass.getText() +"'";
                 ResultSet r = s.executeQuery(sql);
-                
+                nim=et_user.getText();
                 int baris = 0;
                 while (r.next()) {
                     baris = r.getRow();
@@ -241,18 +262,21 @@ public class login_all extends javax.swing.JFrame {
                         m=rs.getString("id_absen");
                     } String o = m.substring(0, 14);
 //                    jTextField1.setText(o);
-
+                    System.out.println(o);
                     Connection k1 = ip_form.configDB();
                     Statement l1 = k1.createStatement();
-                    String sql3 = "SELECT * FROM absen where id_absen='"+o+"%' and tanggal_absen="+getTanggal()+"";
+                    String sql3 = "SELECT * FROM absen where id_absen like '"+o+"%' and tanggal_absen='"+getTanggal()+"' order by jam_absen DESC limit 1";
                     ResultSet rs1 = l1.executeQuery(sql3);
                     while (rs1.next()){
                         m=rs1.getString("id_absen");
+                        System.out.println(m);
                     }
+                    id_absen=m;
+                    System.out.println(sql3);
                     
                     String ff = muncul_waktu(m);
                     
-                    String sql4 = "UPDATE `absen_detail` SET `tanggal_absen`='"+getTanggal()+"',`jam_absen`='"+getWaktu()+"',`ket`='"+ff+"' WHERE id_absen='"+m+"' and nim_mhs='"+et_user.getText()+"'";
+                    String sql4 = "UPDATE `absen_detail` SET `tanggal_absen`='"+getTanggal()+"',`jam_absen`='"+getWaktu()+"',`ket`='"+ff+"',`id_komputer`='"+data.id_komputer+"' WHERE id_absen='"+m+"' and nim_mhs='"+et_user.getText()+"'";
                     java.sql.Connection connn=(Connection)ip_form.configDB();
                     java.sql.PreparedStatement pstt=connn.prepareStatement(sql4);
                     pstt.execute();
@@ -261,10 +285,8 @@ public class login_all extends javax.swing.JFrame {
                     
                     baris ++;
                     JOptionPane.showMessageDialog(null,"Berhasil Login");
-                    sql_mahasiswa = "INSERT INTO absen_mhs VALUES ('"+et_user.getText()+"')";
-                    java.sql.Connection conn9=(Connection)ip_form.configDB();
-                    java.sql.PreparedStatement pst=conn9.prepareStatement(sql_mahasiswa);
-                    pst.execute();
+                    
+                  
                     pindahkemahasiswa();
                     
                 }else {
@@ -273,6 +295,7 @@ public class login_all extends javax.swing.JFrame {
                     et_pass.setText("");
                 }
             } catch (SQLException e) {
+                System.out.println(e.toString());
             }
         }
     }
@@ -340,7 +363,7 @@ public class login_all extends javax.swing.JFrame {
     }
     
     public void pindahkemahasiswa() {
-        dash_mahasiswa frm_dash_mhs = new dash_mahasiswa(a);
+        dash_mahasiswa frm_dash_mhs = new dash_mahasiswa(a,id_absen,nim,id_komputer);
         frm_dash_mhs.setVisible(true);
         this.setVisible(false);
     }
