@@ -88,9 +88,12 @@
               <Image iconType="3" name="/icon/Button_Connect.png"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel10MouseClicked"/>
+          </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="380" y="40" width="176" height="50"/>
+              <AbsoluteConstraints x="670" y="60" width="176" height="50"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -259,6 +262,7 @@
             </Constraint>
           </Constraints>
         </Component>
+
         <Component class="javax.swing.JTextField" name="jTextField1">
           <Properties>
             <Property name="text" type="java.lang.String" value="jTextField1"/>
@@ -279,6 +283,7 @@
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="620" y="110" width="-1" height="-1"/>
+
             </Constraint>
           </Constraints>
         </Component>
